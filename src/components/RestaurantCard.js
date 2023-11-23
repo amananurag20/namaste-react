@@ -1,4 +1,4 @@
-import {CDN_URL} from "../utils/constants" ;
+import { CDN_URL } from "../utils/constants";
 
 
 const RestaurantCard = (props) => {
@@ -15,6 +15,17 @@ const RestaurantCard = (props) => {
             <h4>{areaName}</h4>
         </div>
     );
+};
+
+export const withPromotedLabel=(RestaurantCard)=>{
+    return (props)=>{
+        return (
+            <div>
+                <label className="absolute bg-black text-white m-2 px-2 py-1 rounded-lg">Promoted</label>
+                <RestaurantCard {...props}/>
+            </div>
+        );
+    };
 };
 
 export default RestaurantCard;
