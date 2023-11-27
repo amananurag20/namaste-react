@@ -1,8 +1,9 @@
 import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 
 
 const Body = () => {
@@ -26,7 +27,7 @@ const Body = () => {
         setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     }
 
-
+    const { loggedInUser, setUserName } = useContext(UserContext);
 
     return listOfRestaurant.length === 0 ? (<Shimmer />) : (
         <div className="body">
@@ -46,7 +47,10 @@ const Body = () => {
                         setFilteredRestaurant(filterRestaurant);
 
                     }}>Search</button>
+
+
                 </div>
+
                 <div className="m-4 p-3 flex items-center">
                     <button className="px-4 py-2 bg-gray-100 rounded-lg" onClick={() => {
                         const filterList = listOfRestaurant.filter(res => (res.info.avgRating > 4));
@@ -54,13 +58,18 @@ const Body = () => {
                     }}
                     >Top Rated Restaurant</button>
                 </div>
+                <div className="m-4 p-3 flex items-center">
+                    <labe>UserName</labe>
+                    <input className="border border-black p-2" value={loggedInUser} type="text"
+                        onChange={(e) => setUserName(e.target.value)}></input>
+                </div>
             </div>
             <div className=" flex flex-wrap">
                 {filteredRestaurant.map(restaurant => (
                     <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
-                        {restaurant.info.veg?
-                        (<RestaurantCardPromoted resData={restaurant.info}/>):
-                        (<RestaurantCard resData={restaurant.info} />)}
+                        {restaurant.info.veg ?
+                            (<RestaurantCardPromoted resData={restaurant.info} />) :
+                            (<RestaurantCard resData={restaurant.info} />)}
                     </Link>
                 ))}
             </div>

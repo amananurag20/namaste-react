@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { CDN_URL } from "../utils/constants";
+import UserContext from "../utils/UserContext";
 
 
 const RestaurantCard = (props) => {
     const { resData } = props;
+    const {loggedInUser}= useContext(UserContext);
     const { name, cuisines, avgRating, costForTwo, areaName } = resData;
     return (
         <div className="m-3 p-3 w-[200px] rounded-lg bg-gray-100 hover:bg-gray-200" >
@@ -13,6 +16,7 @@ const RestaurantCard = (props) => {
             <h4>{avgRating}</h4>
             <h4>{costForTwo}</h4>
             <h4>{areaName}</h4>
+            <h4>User: {loggedInUser}</h4>
         </div>
     );
 };
