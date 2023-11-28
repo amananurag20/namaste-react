@@ -1,7 +1,24 @@
+import { useDispatch } from "react-redux";
+import {addItem} from "../utils/cartSlice"
 import { CDN_URL } from "../utils/constants";
 
 const ItemList = ({ items, check }) => {
-    console.log("ya hai problem", items); return (
+    // console.log("ya hai problem", items);
+
+     const dispatch = useDispatch();
+
+     const handleAddItem1= (item)=>{        
+        //Dispatch an action
+        dispatch(addItem(item)); }
+
+        const handleAddItem2= (item2)=>{        
+            //Dispatch an action
+            dispatch(addItem(item2));
+        }
+            
+        
+     
+     return (
         check?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory" ? (
             <div>
                 {check?.itemCards.map((item) => (
@@ -17,7 +34,8 @@ const ItemList = ({ items, check }) => {
                         </div>
                         <div className="w-3/12  p-4">
                             <div className="absolute">
-                                <button className="bg-black text-white rounded-lg p-2 mx-12">Add+</button>
+                                <button className="bg-black text-white rounded-lg p-2 mx-12"
+                                 onClick={()=>handleAddItem1(item)}> Add+</button>
                             </div>
                             {item?.card?.info?.imageId && (
                                 <img className="rounded-md" src={CDN_URL + item?.card?.info?.imageId} />)
@@ -27,8 +45,9 @@ const ItemList = ({ items, check }) => {
                 ))}
             </div>) : (
             <div>
-                {items.map((item) => (
-                    <div key={item?.itemCards[0]?.card?.info?.id}>
+                {items.map((item, index) => (
+                    <div key={index++}>
+                        {/* item?.itemCards[0]?.card?.info?.id */}
                         <div className="p-2 m-2   text-left">
                             <div className="font-bold text-lg mb-3  ">{item.title}</div>
                             {item?.itemCards?.map((item2) => {
@@ -43,7 +62,8 @@ const ItemList = ({ items, check }) => {
                                     </div>
                                     <div className="w-3/12 p-4">
                                         <div className="absolute">
-                                            <button className="bg-black  text-white rounded-lg p-1 mx-12">Add+</button>
+                                            <button className="bg-black  text-white rounded-lg p-1 mx-12"
+                                            onClick={()=>handleAddItem2(item2)}>Add+</button>
                                         </div>
                                         {item2?.card?.info?.imageId && (
                                             <img className="rounded-md" src={CDN_URL + item2?.card?.info?.imageId} />)

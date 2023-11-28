@@ -59,7 +59,7 @@ const Body = () => {
                     >Top Rated Restaurant</button>
                 </div>
                 <div className="m-4 p-3 flex items-center">
-                    <labe>UserName</labe>
+                    <label>UserName</label>
                     <input className="border border-black p-2" value={loggedInUser} type="text"
                         onChange={(e) => setUserName(e.target.value)}></input>
                 </div>
